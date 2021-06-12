@@ -149,7 +149,7 @@ namespace Tutorial
         }
 
         /*
-         * Waw-Funktion, Thins-Methode zeigt dem Benutzer alle verfügbaren Farben, aus denen ausgewählt werden würde
+         * Waw-Funktion, diese Methode zeigt dem Benutzer alle verfügbaren Farben, aus denen ausgewählt werden würde
          */
         public static void PrintAvailableColorsAsList()
         {
