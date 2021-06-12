@@ -155,7 +155,7 @@ namespace Tutorial
         {
             var availbleColorsLength = Enum.GetNames(typeof(ConsoleColor)).Length;
             Console.WriteLine();
-            for (int i = 0; i < availbleColorsLength -1 ; i++)
+            for (int i = 0; i < availbleColorsLength ; i++)
             {
                 Console.Write($"{i} - ");
                 Console.ForegroundColor = (ConsoleColor)i;
