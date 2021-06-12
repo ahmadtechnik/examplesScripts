@@ -19,24 +19,33 @@ namespace Tutorial
             {
 
                 // Konsolennachricht an den Benutzer, um Daten einzugeben
-                Console.Write("Wählen Sie einen Index von 0 bis 15 :");
+                Console.Write("Wählen Sie einen Index von 0 bis 15 : ");
 
                 // Variable initialisieren, um Benutzereingaben darin zu speichern
-                long userInput = -1;
+                string userInputString = Console.ReadLine();
+                int userInput = -2;
 
                 // versuchen den eingegebenen Wert in (int 64 bit) umzuwandeln, um Fehlermeldungen vom Compiler zu vermeiden
                 try
                 {
                     // Benutzereingaben in Variable speichern, um den Wert später zu verarbeiten
-                    userInput = Convert.ToInt64(Console.ReadLine());
+                    userInput = (int)Convert.ToInt64(userInputString);
                 }
 
                 // Wenn ein Fehler aufgetreten ist, werden wir ihn hier in diesem Block abfangen und anderen Anweisungen entgehen
                 catch (Exception ex)
                 {
+                    // Überprüfen, ob der Benutzer das l-Zeichen eingegeben hat, um die Farbliste erneut anzuzeigen
+                    if (userInputString.ToLower() == "l")
+                    {
+                        PrintAvailableColorsAsList();
+                        continue;
+                    }
+
                     // Rufen Sie die Methode ShowErrorMessage in auf, um die Nachricht in einer bestimmten Farbe anzuzeigen (Rot)
                     ShowErrorMessage(ex.Message);
                     continue;
+
                 }
 
                 // Wenn der Benutzer -1 eingegeben hat, verlassen Sie das Programm
@@ -44,7 +53,6 @@ namespace Tutorial
                 {
                     PrintLoader();
                     Console.Write("Schade ! Bay Bay 🤪 ");
-                    System.Threading.Thread.Sleep(100);
                     break;
                 }
 
@@ -70,7 +78,7 @@ namespace Tutorial
                 for (int i = 0; i < Teilnehmer.Length; i++)
                 {
                     Console.Write($"[{Teilnehmer[i]}] - ");
-                    System.Threading.Thread.Sleep(10);
+                    sleep(10);
                 }
 
                 // neue 2 Zeilen drucken
@@ -127,12 +135,20 @@ namespace Tutorial
             Console.Write(prependMessage);
 
             float precent = 0;
+            int timeout = 1;
+
             for (int i = 0; i < w - prependMessage.Length - 1; i++)
             {
                 precent = (float)i / (float)w * 100;
                 ClearConsoleByLength(prependMessage.Length, precent.ToString("0.00").Length);
                 Console.Write($"{precent.ToString("0.00")}%]");
-                System.Threading.Thread.Sleep(5);
+
+                sleep(timeout);
+
+                if (i % 5 == 0)
+                {
+                    timeout++;
+                }
             }
             ClearCurrentConsoleLine();
             Console.Write('\n');
@@ -161,13 +177,26 @@ namespace Tutorial
         {
             var availbleColorsLength = Enum.GetNames(typeof(ConsoleColor)).Length;
             Console.WriteLine();
-            for (int i = 0; i < availbleColorsLength ; i++)
+            int timeout = 50;
+            for (int i = 0; i < availbleColorsLength; i++)
             {
                 Console.Write($"{i} - ");
                 Console.ForegroundColor = (ConsoleColor)i;
                 Console.Write($"{(ConsoleColor)i}\n");
                 Console.ForegroundColor = ConsoleColor.White;
+                sleep(timeout);
             }
+        }
+
+        /*
+         * die Ausgabe für ein bestimmtes Timeout schlafen.
+         * Wir wollen unser Programm nicht sehr schnell machen, wir wollen das Gefühl haben, dass etwas im Hintergrund passiert
+         */
+        public static void sleep(
+            /* Setzen Sie den Standardwert, falls wir keine Zahl angeben möchten */
+            int timeout = 0)
+        {
+            System.Threading.Thread.Sleep(timeout);
         }
 
     }
