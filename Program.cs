@@ -126,13 +126,15 @@ namespace Tutorial
             var prependMessage = "Loading [";
             Console.Write(prependMessage);
 
+            float precent = 0;
             for (int i = 0; i < w - prependMessage.Length - 1; i++)
             {
-                float precent = (float)i / (float)w * 100;
+                precent = (float)i / (float)w * 100;
                 ClearConsoleByLength(prependMessage.Length, precent.ToString("0.00").Length);
                 Console.Write($"{precent.ToString("0.00")}%]");
                 System.Threading.Thread.Sleep(5);
             }
+            ClearCurrentConsoleLine();
             Console.Write('\n');
         }
 
