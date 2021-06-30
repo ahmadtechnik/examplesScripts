@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Tutorial
 {
@@ -11,85 +12,168 @@ namespace Tutorial
 
         static void Main(string[] args)
         {
-            // Liste der verfügbaren Farben anzeigen
-            PrintAvailableColorsAsList();
-
-            // Bitten den Benutzer immer wieder, etwas einzugeben
-            while (true)
-            {
-
-                // Konsolennachricht an den Benutzer, um Daten einzugeben
-                Console.Write("Wählen Sie einen Index von 0 bis 15 : ");
-
-                // Variable initialisieren, um Benutzereingaben darin zu speichern
-                string userInputString = Console.ReadLine();
-                int userInput = -2;
-
-                // versuchen den eingegebenen Wert in (int 64 bit) umzuwandeln, um Fehlermeldungen vom Compiler zu vermeiden
-                try
-                {
-                    // Benutzereingaben in Variable speichern, um den Wert später zu verarbeiten
-                    userInput = (int)Convert.ToInt64(userInputString);
-                }
-
-                // Wenn ein Fehler aufgetreten ist, werden wir ihn hier in diesem Block abfangen und anderen Anweisungen entgehen
-                catch (Exception ex)
-                {
-                    // Überprüfen, ob der Benutzer das l-Zeichen eingegeben hat, um die Farbliste erneut anzuzeigen
-                    if (userInputString.ToLower() == "l")
-                    {
-                        PrintAvailableColorsAsList();
-                        continue;
-                    }
-
-                    // Rufen Sie die Methode ShowErrorMessage in auf, um die Nachricht in einer bestimmten Farbe anzuzeigen (Rot)
-                    ShowErrorMessage(ex.Message);
-                    continue;
-
-                }
-
-                // Wenn der Benutzer -1 eingegeben hat, verlassen Sie das Programm
-                if (userInput == -1)
-                {
-                    PrintLoader();
-                    Console.Write("Schade ! Bay Bay 🤪 ");
-                    break;
-                }
-
-                // Überprüfen Sie, ob die Benutzereingabe zwischen 0 und 15 . liegt
-                if (!IsBtween(0, 15, userInput))
-                {
-                    // Rufen Sie die Methode ShowErrorMessage in auf, um die Nachricht in einer bestimmten Farbe anzuzeigen (Rot)
-                    ShowErrorMessage("WAS !! was hast du von wert eingegeben ! nur sauberen Wert eingeben 😑  ");
-                    // Wenn die Benutzereingabe nicht zwischen 0 und 15 liegt, führe den Code nicht aus
-                    continue;
-                }
-
-                // Konsolenfarbe auf die Farbe setzen, die der Benutzer ausgewählt hat
-                Console.ForegroundColor = (ConsoleColor)userInput;
-
-                // vom Benutzer ausgewählten Farbnamen und Index anzeigen
-                Console.WriteLine($"Cool ! du hast die Farbe '{(ConsoleColor)userInput} / mit index {userInput}' ausgewählt. Lass uns jetzt die Nahmen mit der Farbe drucken Warte 2 Secunde.");
-
-                // Schick ! Benutzerlader anzeigen, um das Gefühl zu geben, dass etwas im Gange ist
-                PrintLoader();
-
-                // Gefälschte Daten in der Konsole drucken
-                for (int i = 0; i < Teilnehmer.Length; i++)
-                {
-                    Console.Write($"[{Teilnehmer[i]}] - ");
-                    sleep(10);
-                }
-
-                // neue 2 Zeilen drucken
-                Console.Write("\n\n");
-
-                // Schriftfarbe wieder auf weiß setzen
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-
+            
         }
 
+        static void auf21()
+        {
+            int xy = 5; // breite
+
+            for (int xi = 0; xi < xy; xi++)
+            {
+                for (int yi = 0; yi < xy-xi-1; yi++)
+                {
+                    Console.Write("-");
+                }
+                Console.WriteLine("/");
+            }
+        }
+
+        static void auf24()
+        {
+            int xy = 8; // breite
+
+            for (int xi = 0; xi < xy; xi++)
+            {
+                for (int yi = 0; yi < xy; yi++)
+                {
+                    Console.Write( ((xi^yi) % 2) == 0 ? "X" : "O");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        static void auf22()
+        {
+            int xy = 5; // breite
+
+            for (int xi = 0; xi < xy; xi++)
+            {
+                for (int yi = 0; yi < xy; yi++)
+                {
+                    Console.Write((yi == xi ||  yi == xy-xi-1) ? "X" : "-");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        static void auf23()
+        {
+            int xy = 16; // breite
+
+            for (int xi = 0; xi < xy; xi++)
+            {
+                for (int yi = 0; yi < xy; yi++)
+                {
+                   Console.Write( yi%2 ==0 ? "|" : "_");
+                }
+                Console.WriteLine("|");
+            }
+        }
+
+        static void auf20()
+        {
+            int x = 5; // breite
+            int y = 5; // höhe
+
+            for (int xi = 0; xi < x; xi++)
+            {
+                for (int yi = 0; yi < y; yi++)
+                {
+                    if(xi == yi)
+                    {
+                        Console.Write("X");
+                    }
+                    else
+                    {
+                        Console.Write("-");
+                    }
+                }
+                Console.Write("\n");
+            }
+        }
+
+        static void auf19()
+        {
+            ConsoleColor color = Console.BackgroundColor;
+            Console.Write("Geben Sie bitte ein Zhal ein : ");
+            int benutzerEingabe = Convert.ToInt16(Console.ReadLine());
+
+            switch (benutzerEingabe)
+            {
+                case int n when (benutzerEingabe < 5):
+                    Console.WriteLine($"Zahl ({n}) ist kleiner als 5 ");
+                    break;
+                case int n when (benutzerEingabe >= 5):
+                    Console.WriteLine("Zahl ({n}) ist größer oder gleich 5");
+                    break;
+                default:
+                    Console.WriteLine("!!!!!");
+                    break;
+            }
+
+            auf19();
+        }
+
+        static void auf18()
+        {
+            ConsoleColor color = Console.BackgroundColor;
+            Console.Write("Was möchten Sie ? das licht ein oder aus, oder geben Sie 'e' ein, um das Programm zu beenden :");
+            String benutzerWunsch = Console.ReadLine();
+            switch (benutzerWunsch)
+            {
+                case "aus":
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Sie haben die Glühbirne eingeschaltet.");
+                    break;
+                case "ein":
+                    Console.BackgroundColor = ConsoleColor.DarkGreen;
+                    Console.WriteLine("Sie haben die Glühbirne ausgeschaltet.");
+                    break;
+                case "o":
+                    Console.BackgroundColor = ConsoleColor.DarkBlue;
+                    Console.WriteLine("Bay Bay !!");
+                    return;
+                default:
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.WriteLine("unbekannte Eingabe, bitte versuchen Sie es erneut.");
+                    break;
+            }
+
+            Console.BackgroundColor = color;
+            auf18();
+        }
+
+        static void auf17()
+        {
+            Console.Write("Geben Sie bitte ein die massen in MM ein :");
+            Int64 massenInMM = Convert.ToInt64(Console.ReadLine());
+
+            double massenInCM = Math.Round((double)massenInMM / 100,2);
+            double massenInM = Math.Round(massenInCM / 100,2);
+            double massenInKM = Math.Round(massenInM / 100, 2);
+
+            Console.WriteLine($"die Werte nach der Konvertierung sind : ({massenInMM}MM) ({massenInCM}CM) ({massenInM}M) ({massenInKM}KM)");
+        }
+
+        static void auf16()
+        {
+            Console.Write("Bitte Geben Sie Körpertemperatur ein :");
+            double korperTemratur = Convert.ToDouble(Console.ReadLine());
+
+            if (korperTemratur > 37.5)
+            {
+                Console.WriteLine("Sie haben Fieber !");
+            }
+            else
+            {
+                Console.WriteLine("Sie haben kein Fieber !");
+            }
+        }
+
+        /*************** BIS HIER KLAUSUR AUFGABEN **********************/
+        
+       
         /*
          * Diese Methode prüft, ob der angegebene Wert im Bereich zwischen (min) und (max) liegt
          */
@@ -199,5 +283,87 @@ namespace Tutorial
             System.Threading.Thread.Sleep(timeout);
         }
 
+        public static void RunApp()
+        {
+            // Liste der verfügbaren Farben anzeigen
+            PrintAvailableColorsAsList();
+
+            // Bitten den Benutzer immer wieder, etwas einzugeben
+            while (true)
+            {
+
+                // Konsolennachricht an den Benutzer, um Daten einzugeben
+                Console.Write("Wählen Sie einen Index von 0 bis 15 : ");
+
+                // Variable initialisieren, um Benutzereingaben darin zu speichern
+                string userInputString = Console.ReadLine();
+                int userInput = -2;
+
+                // versuchen den eingegebenen Wert in (int 64 bit) umzuwandeln, um Fehlermeldungen vom Compiler zu vermeiden
+                try
+                {
+                    // Benutzereingaben in Variable speichern, um den Wert später zu verarbeiten
+                    userInput = (int)Convert.ToInt64(userInputString);
+                }
+
+                // Wenn ein Fehler aufgetreten ist, werden wir ihn hier in diesem Block abfangen und anderen Anweisungen entgehen
+                catch (Exception ex)
+                {
+                    // Überprüfen, ob der Benutzer das l-Zeichen eingegeben hat, um die Farbliste erneut anzuzeigen
+                    if (userInputString.ToLower() == "l")
+                    {
+                        PrintAvailableColorsAsList();
+                        continue;
+                    }
+
+                    // Rufen Sie die Methode ShowErrorMessage in auf, um die Nachricht in einer bestimmten Farbe anzuzeigen (Rot)
+                    ShowErrorMessage(ex.Message);
+                    continue;
+
+                }
+
+                // Wenn der Benutzer -1 eingegeben hat, verlassen Sie das Programm
+                if (userInput == -1)
+                {
+                    PrintLoader();
+                    Console.Write("Schade ! Bay Bay 🤪 ");
+                    break;
+                }
+
+                // Überprüfen Sie, ob die Benutzereingabe zwischen 0 und 15 . liegt
+                if (!IsBtween(0, 15, userInput))
+                {
+                    // Rufen Sie die Methode ShowErrorMessage in auf, um die Nachricht in einer bestimmten Farbe anzuzeigen (Rot)
+                    ShowErrorMessage("WAS !! was hast du von wert eingegeben ! nur sauberen Wert eingeben 😑  ");
+                    // Wenn die Benutzereingabe nicht zwischen 0 und 15 liegt, führe den Code nicht aus
+                    continue;
+                }
+
+                // Konsolenfarbe auf die Farbe setzen, die der Benutzer ausgewählt hat
+                Console.ForegroundColor = (ConsoleColor)userInput;
+
+                // vom Benutzer ausgewählten Farbnamen und Index anzeigen
+                Console.WriteLine($"Cool ! du hast die Farbe '{(ConsoleColor)userInput} / mit index {userInput}' ausgewählt. Lass uns jetzt die Nahmen mit der Farbe drucken Warte 2 Secunde.");
+
+                // Schick ! Benutzerlader anzeigen, um das Gefühl zu geben, dass etwas im Gange ist
+                PrintLoader();
+
+                // Gefälschte Daten in der Konsole drucken
+                for (int i = 0; i < Teilnehmer.Length; i++)
+                {
+                    Console.Write($"[{Teilnehmer[i]}] - ");
+                    sleep(1);
+                }
+
+                // neue 2 Zeilen drucken
+                Console.Write("\n\n");
+
+                // Schriftfarbe wieder auf weiß setzen
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+        }
+        
+
     }
+
 }
